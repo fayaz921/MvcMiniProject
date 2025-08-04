@@ -58,7 +58,7 @@ namespace MvcTemplate.Areas.UserArea.Controllers
             return View(list);
         }
 
-
+        //partial view code start here
 
         public ActionResult CreateUsersAjax()
         {
