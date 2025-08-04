@@ -1,0 +1,151 @@
+﻿@model MvcTemplate.Dtos.UsersDto
+@{
+    ViewBag.Title = "CreateUsers";
+    Layout = "~/Areas/UserArea/Views/Shared/_UserLayout.cshtml";
+}
+
+<div>
+    <div class="content-page">
+        <!-- Start content -->
+        <div class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-title-box">
+                            <h4 class="page-title">Form Validation</h4>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Agroxa</a></li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Forms</a></li>
+                                <li class="breadcrumb-item active">Form Validation</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+
+                <div class="page-content-wrapper">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card m-b-20">
+                                <div class="card-body">
+
+                                    <h4 class="mt-0 header-title">Register User</h4>
+                                    <p class="text-muted m-b-30 ">
+                                        Kindly provide Valid Information
+                                    </p>
+
+                                    <form class="" id="Userfrm" onsubmit="SavedUsers(event)">
+
+                                        @Html.HiddenFor(x => x.Id)
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input type="text" name="Name" value="@Model.Name" class="form-control" required placeholder="Enter UserName" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <div>
+                                                <input type="password" id="Password" name="Password" value="@Model.Password" class="form-control" required
+                                                       placeholder="Enter Password" />
+                                            </div>
+                                            <div class="m-t-10">
+                                                <input type="password" name="Password" value="@Model.Password" class="form-control" required
+                                                       data-parsley-equalto="#Password"
+                                                       placeholder="Re-Type Password" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>E-Mail</label>
+                                            <div>
+                                                <input type="email" name="Email" value="@Model.Email" class="form-control" required
+                                                       parsley-type="Email" placeholder="Enter a valid E-mail" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Cnic</label>
+                                            <div>
+                                                <input type="text" name="Cnic" value="@Model.Cnic" class="form-control"
+                                                       required placeholder="Enter Cnic" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <div>
+                                                <input type="text" name="Address" value="@Model.Address"
+                                                       class="form-control" required
+                                                       placeholder="Enter Address" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div>
+                                                @if (Model.Id > 0)
+                                                {
+                                                    <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                                        Update
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                                        Submit
+                                                    </button>
+                                                }
+
+
+
+                                                <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div> <!-- end col -->
+
+
+                    </div> <!-- end row -->
+                </div>
+                <!-- end page content-->
+
+            </div> <!-- container-fluid -->
+
+        </div> <!-- content -->
+    </div>
+</div>
+
+<script src="~/Assets/assets/js/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    function SavedUsers(event) {
+        event.preventDefault();
+        var frmdata = new FormData(document.getElementById('Userfrm'));
+        debugger;
+        $.ajax({
+            type: "Post",
+            url: "/UserArea/Users/SaveUsers",
+            data: frmdata,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                if (result == 1) {
+                    toastr.success("Saved Successfully");
+                    loaduserlist();
+                }
+            },
+            error: function (xhr, status, error) {
+                toastr.error("Error occurred: " + error);
+            }
+
+        });
+    }
+
+    function loaduserlist() {
+        $("#Datatablepartial").load("/UserArea/Users/GetUsersListPartial");
+    }
+
+
+</script>

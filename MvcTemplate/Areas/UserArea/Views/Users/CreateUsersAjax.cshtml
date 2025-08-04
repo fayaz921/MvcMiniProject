@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "CreateUsersAjax";
+    Layout = "~/Areas/UserArea/Views/Shared/_UserLayout.cshtml";
+}
+
+<div id="Createuserpartial" class="mb-4">
+
+</div>
+
+<div id="Datatablepartial" class="mb-4">
+
+</div>
+
+
+
+    
+@section Scripts {
+    <script>
+    $(document).ready(function () {
+        $("#Createuserpartial").load("/UserArea/Users/CreateusersPartial");
+        $("#Datatablepartial").load("/UserArea/Users/GetUsersListPartial");
+    });
+    </script>
+
+}
