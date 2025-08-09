@@ -15,7 +15,7 @@ namespace MvcTemplate.Services
 
         public void Add(UsersDto usersDto)
         {
-            Users users = new Users();           
+            Users users = new Users();          
             users.Name = usersDto.Name;
             users.Password = usersDto.Password;
             users.Cnic = usersDto.Cnic;
